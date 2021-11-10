@@ -5,17 +5,11 @@ import static android.widget.ImageView.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.VibrationEffect;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -41,15 +35,12 @@ public class MainActivity extends AppCompatActivity {
     public ImageView heart1;
     public ImageView heart2;
     public ImageView heart3;
-    private Timer timer;
     public int chosenTrack;
     public int wastedLives;
-    public boolean stop = false;
-    private Handler handler = new Handler();
     public List<LinearLayout> tracks;
     public List<ImageView> lives;
 
-    public void moveRight(){
+    public void moveRight(){ // Function that is responsible about moving the car right
         rightBtn = findViewById(R.id.right_btn);
         rightBtn.setOnClickListener(e->{
             if(leftCarTrack.findViewById(car.getId()) != null){ // if the car is in the left track then move it to the middle track
@@ -64,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void moveLeft(){
+    public void moveLeft(){ // Function that is responsible about moving the car left
         leftBtn = findViewById(R.id.left_btn);
         leftBtn.setOnClickListener(e -> {
             if(rightCarTrack.findViewById(car.getId()) != null){ // if the car is in the left track then move it to the middle track
@@ -78,20 +69,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void startGame(){
-        timer = new Timer();
+    public void startGame(){ // Function that is responsible about moving the stone in the tracks
+        Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
                                       @Override
                                       public void run() {
                                           runOnUiThread(new Runnable() {
                                               @Override
                                               public void run() {
-                                                  if (stone.getY() == (carTrack.getY()-60) && stone.getY() != 0.0) {
+                                                  if (stone.getY() == (carTrack.getY()-60) && stone.getY() != 0.0) { // If the stone reached the car track on the y axis then move the stone to the next track
                                                       if((leftTrack.findViewById(stone.getId()) != null) && (leftCarTrack.findViewById(car.getId()) != null)||
                                                               (middleTrack.findViewById(stone.getId()) != null) && (middleCarTrack.findViewById(car.getId()) != null)||
-                                                              (rightTrack.findViewById(stone.getId()) != null) && (rightCarTrack.findViewById(car.getId()) != null)){
-                                                          vibrate();
-                                                          if(wastedLives == 2){
+                                                              (rightTrack.findViewById(stone.getId()) != null) && (rightCarTrack.findViewById(car.getId()) != null)){ // If the stone at the same side of track with the car then remove on live
+                                                          vibrate(); // Make the phone vibrate
+                                                          if(wastedLives == 2){ // If you failed 3 times then start again with another 3 lives
                                                               for(ImageView live : lives)
                                                                   live.setVisibility(VISIBLE);
                                                               wastedLives = 0;
@@ -110,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                                                       stone.setY(0);
                                                   }
                                                   else{
-                                                      stone.setY(stone.getY() + 1);
+                                                      stone.setY(stone.getY() + 1); // Move the stone in the y axis
                                                   }
                                               }
                                           });
@@ -122,13 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void vibrate(){
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 500 milliseconds
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            //deprecated in API 26
-            v.vibrate(500);
-        }
     }
 
     @Override
