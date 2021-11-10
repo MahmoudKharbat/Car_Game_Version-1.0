@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                                           runOnUiThread(new Runnable() {
                                               @Override
                                               public void run() {
-                                                  if (stone.getY() == (carTrack.getY()-60) && stone.getY() != 0.0) { // If the stone reached the car track on the y axis then move the stone to the next track
+                                                  if (stone.getY() == (carTrack.getY()-200) && stone.getY() != 0.0) { // If the stone reached the car track on the y axis then move the stone to the next track
                                                       if((leftTrack.findViewById(stone.getId()) != null) && (leftCarTrack.findViewById(car.getId()) != null)||
                                                               (middleTrack.findViewById(stone.getId()) != null) && (middleCarTrack.findViewById(car.getId()) != null)||
                                                               (rightTrack.findViewById(stone.getId()) != null) && (rightCarTrack.findViewById(car.getId()) != null)){ // If the stone at the same side of track with the car then remove on live
