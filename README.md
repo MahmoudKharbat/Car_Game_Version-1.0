@@ -2,4 +2,4 @@
 
 
 ## The Game
-<img src = 'Illustration_Images/main_page.jpg' width = '500px'/>
+<img src = 'Illustration_Images/main_page.jpg' width = '300px'/>
