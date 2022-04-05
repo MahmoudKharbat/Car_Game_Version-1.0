@@ -4,7 +4,7 @@ Car game is the first assignment that was required in the course 'Introduction T
 
 The game was built using java in android studio.
 
-The features that the game have is: 
+The features that the game has is: 
 
 1- Vibrating when the car crashes with the stone.
 
